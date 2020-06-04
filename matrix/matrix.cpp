@@ -36,9 +36,14 @@ void DenseMatrix::resize(int newRow, int newColumn) {
     for (int i=0; i<newRow; i++){
         newMatrix[i] = new double[newColumn];
     }
-    for (int i = 0; i < rows; ++i) {
-        for (int j = 0; j < cols; ++j) {
+    int copyRow = rows <= newRow ? rows : newRow;
+    int copyCol = cols <= newColumn ? cols : newColumn;
+    for (int i = 0; i < copyRow; ++i) {
+        for (int j = 0; j < copyCol; ++j) {
             newMatrix[i][j] = matrix[i][j];
         }
     }
+    rows = newRow;
+    cols = newColumn;
+    matrix = newMatrix; //need to look at this again cause old matrix might not be deallocate here
 }
